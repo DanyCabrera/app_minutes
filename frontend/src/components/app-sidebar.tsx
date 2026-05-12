@@ -27,10 +27,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-  SidebarSeparator,
 } from "@/components/ui/sidebar";
 import { NavUser } from "@/components/nav-user";
-import { ThemeToggle } from "@/components/theme-toggle";
 import {
   canManageSystemSettings,
   canManageUsers,
@@ -121,14 +119,6 @@ export function AppSidebar({ email, role }: Props) {
       </SidebarContent>
 
       <SidebarFooter>
-        <div className="flex items-center justify-between gap-2 px-2 group-data-[collapsible=icon]:hidden">
-          <span className="text-muted-foreground text-xs">Tema</span>
-          <ThemeToggle />
-        </div>
-        <div className="hidden justify-center group-data-[collapsible=icon]:flex">
-          <ThemeToggle />
-        </div>
-        <SidebarSeparator />
         <NavUser email={email} role={role} />
       </SidebarFooter>
 
