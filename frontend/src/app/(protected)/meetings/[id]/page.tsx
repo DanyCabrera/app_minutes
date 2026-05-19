@@ -113,8 +113,17 @@ export default async function MeetingDetailPage({ params, searchParams }: Props)
           <CardHeader className="space-y-1 pb-2">
             <CardTitle className="text-sm font-medium text-destructive">Zona sensible</CardTitle>
             <CardDescription className="text-xs leading-relaxed">
-              Cancelar marca la reunión como terminada sin borrar datos. Eliminar borra el registro (puede fallar si hay
-              minutas u otras referencias).
+              <ul className="list-disc space-y-1 pl-4">
+                <li>
+                  <strong>Cancelar:</strong> Cambia la reunión a terminada sin borrar nada de información.
+                </li>
+                <li>
+                  <strong>Eliminar:</strong> Borra la reunión por completo.{" "}
+                  <span className="text-muted-foreground">
+                    (Nota: No se podrá eliminar si la reunión ya tiene minutas u otros datos guardados).
+                  </span>
+                </li>
+              </ul>
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-wrap gap-2 pt-0">
