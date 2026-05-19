@@ -16,7 +16,6 @@ import {
   canManageSystemSettings,
   canManageUsers,
   canSecretaryOperate,
-  canSeeMyCommitmentsNav,
   canViewAudit,
   canViewReports,
   roleLabel,
@@ -73,20 +72,6 @@ export default async function DashboardPage() {
             ) : null}
           </CardContent>
         </Card>
-
-        {canSeeMyCommitmentsNav(role) ? (
-          <Card>
-            <CardHeader>
-              <CardTitle>Mis compromisos</CardTitle>
-              <CardDescription>Tareas que te han asignado</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link href="/my-commitments" className={cn(buttonVariants({ variant: "outline" }))}>
-                Abrir lista
-              </Link>
-            </CardContent>
-          </Card>
-        ) : null}
 
         {canSecretaryOperate(role) ? (
           <Card>

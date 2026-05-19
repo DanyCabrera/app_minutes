@@ -10,10 +10,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import {
-  addMeetingAttendeeAction,
   cancelMeetingAction,
   deleteMeetingAction,
   getMeeting,
@@ -173,33 +171,6 @@ export default async function MeetingDetailPage({ params, searchParams }: Props)
                 ))}
               </ul>
             )}
-            {staff ? (
-              <form action={addMeetingAttendeeAction} className="flex flex-wrap items-end gap-2 border-t pt-4">
-                <input type="hidden" name="meeting_id" value={id} />
-                <div className="space-y-1">
-                  <Label htmlFor="user_id">Añadir usuario</Label>
-                  <select
-                    id="user_id"
-                    name="user_id"
-                    required
-                    className="border-input bg-background h-10 min-w-[220px] rounded-lg border px-3 text-sm"
-                    defaultValue=""
-                  >
-                    <option value="" disabled>
-                      Selecciona…
-                    </option>
-                    {usersList.map((u) => (
-                      <option key={u.id} value={u.id}>
-                        {u.email ?? u.id.slice(0, 8) + "…"}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <button type="submit" className={cn(buttonVariants({ size: "sm" }))}>
-                  Añadir
-                </button>
-              </form>
-            ) : null}
           </CardContent>
         </Card>
       </section>
