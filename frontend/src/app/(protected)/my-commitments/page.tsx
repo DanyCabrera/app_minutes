@@ -7,15 +7,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { listMyCommitments, patchCommitmentAction } from "@/actions/commitments";
+import { CommitmentStatusForm } from "@/components/commitments/commitment-status-form";
+import { listMyCommitments } from "@/actions/commitments";
 import { getMyRole } from "@/lib/session-role";
 import { canSeeMyCommitmentsNav } from "@/lib/roles";
 import type { CommitmentRow } from "@/types/database";
 
 const STATUSES = ["pendiente", "en_progreso", "cumplido", "vencido"] as const;
+type Status = (typeof STATUSES)[number];
+
+function asStatus(value: string | null | undefined): Status {
+  return (STATUSES as readonly string[]).includes(value ?? "") ? (value as Status) : "pendiente";
+}
 
 export default async function MyCommitmentsPage() {
   const role = await getMyRole();
@@ -62,27 +65,7 @@ export default async function MyCommitmentsPage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <form action={patchCommitmentAction} className="flex flex-wrap items-end gap-3">
-                    <input type="hidden" name="commitment_id" value={c.id} />
-                    <div className="space-y-1">
-                      <Label htmlFor={`st-${c.id}`}>Estado</Label>
-                      <select
-                        id={`st-${c.id}`}
-                        name="status"
-                        defaultValue={c.status ?? "pendiente"}
-                        className="border-input bg-background h-9 rounded-lg border px-3 text-sm"
-                      >
-                        {STATUSES.map((s) => (
-                          <option key={s} value={s}>
-                            {s.replace("_", " ")}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <button type="submit" className={cn(buttonVariants({ size: "sm" }))}>
-                      Guardar
-                    </button>
-                  </form>
+                  <CommitmentStatusForm commitmentId={c.id} initialStatus={asStatus(c.status)} />
                 </CardContent>
               </Card>
             </li>
